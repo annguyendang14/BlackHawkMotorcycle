@@ -15,6 +15,7 @@ class CreateProductOrderLineTable extends Migration
     {
               
         Schema::create('productOrderLine', function (Blueprint $table) {
+			$table->increments('id');
 			$table->integer('order_id')->unsigned();
 			$table->string('product_id',20);
             $table->decimal('price',7,2);
@@ -24,7 +25,7 @@ class CreateProductOrderLineTable extends Migration
 		Schema::table('productOrderLine', function($table) {
 			$table->foreign('order_id')->references('id')->on('orders');
 			$table->foreign('product_id')->references('id')->on('products');
-			$table->primary(array('order_id','product_id'));
+			$table->unique(['order_id','product_id']);
 		});
     }
 

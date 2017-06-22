@@ -15,18 +15,17 @@ class CreateSpaceOrderLineTable extends Migration
     {
            
         Schema::create('spaceOrderLine', function (Blueprint $table) {
+			$table->increments('id');
 			$table->integer('order_id')->unsigned();
-            $table->string('row',10);
-			$table->string('col',10);
+            $table->integer('space_id')->unsigned();
             $table->decimal('price',7,2);
             $table->timestamps();
             
         });
 		Schema::table('spaceOrderLine', function($table) {
 			$table->foreign('order_id')->references('id')->on('orders');
-			$table->foreign('row')->references('row')->on('spaces');
-			//$table->foreign('col')->references('col')->on('spaces'); not sure why not work, but it might not affect the database
-			$table->primary(array('order_id','row', 'col'));
+			$table->foreign('space_id')->references('id')->on('spaces');
+			$table->unique(['order_id','space_id']);
 		});
     }
 

@@ -10,7 +10,8 @@ class CreateSpacesTable extends Migration
     {
          //Space(row, col, note, user_id ,price,date_added,avalibility)        
         Schema::create('spaces', function (Blueprint $table) {
-            $table->string('row',10);
+            $table->increments('id');
+			$table->string('row',10);
 			$table->string('col',10);
             $table->string('note');
             $table->decimal('price',7,2);
@@ -21,7 +22,7 @@ class CreateSpacesTable extends Migration
         });
 		Schema::table('spaces', function($table) {
 			$table->foreign('user_id')->references('id')->on('users');
-			$table->primary(array('row', 'col'));
+			$table->unique(['row', 'col']);
 		});
     }
 
