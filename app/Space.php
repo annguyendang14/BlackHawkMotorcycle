@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Address extends Model
+class Space extends Model
 {
     // MASS ASSIGNMENT -------------------------------------------------------
     // define which attributes are mass assignable (for security)
    
-    protected $fillable = array('addr1', 'addr2', 'city', 'state', 'postalCode', 'prefered', 'user_id', 'addType');
+    protected $fillable = array('row', 'col', 'note', 'price', 'availability','user_id');
 
     // DEFINE RELATIONSHIPS --------------------------------------------------
     
@@ -17,9 +17,4 @@ class Address extends Model
         return $this->belongsTo('User'); 
     }
 	
-	public function addType() {
-		return $this->hasOne('AddType');
-	}
-
-    
 }
