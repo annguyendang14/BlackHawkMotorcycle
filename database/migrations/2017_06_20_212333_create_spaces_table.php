@@ -13,7 +13,7 @@ class CreateSpacesTable extends Migration
             $table->increments('id');
 			$table->string('row',10);
 			$table->string('col',10);
-            $table->string('note');
+            $table->string('note')->nullable();
             $table->decimal('price',7,2);
             $table->enum('availability', ['Reserved', 'Available', 'Not Available', 'Registered']);
             $table->timestamps();

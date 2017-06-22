@@ -17,11 +17,12 @@ class CreateAddressesTable extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('addr1');
-            $table->string('addr2');
+            $table->string('addr2')->nullable();
             $table->string('city');
             $table->string('state');
-            $table->string('postalCode');
-            $table->boolean('prefered');
+			$table->string('country')->default('USA');
+            $table->string('postalCode')->nullable();
+            $table->boolean('prefered')->default(False);
             $table->integer('user_id')->unsigned();
 			$table->timestamps();
             

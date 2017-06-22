@@ -9,7 +9,7 @@ class Address extends Model
     // MASS ASSIGNMENT -------------------------------------------------------
     // define which attributes are mass assignable (for security)
    
-    protected $fillable = array('addr1', 'addr2', 'city', 'state', 'postalCode', 'prefered', 'user_id', 'addType');
+    protected $fillable = array('addr1', 'addr2', 'city', 'state', 'country', 'postalCode', 'prefered', 'user_id', 'addType');
 
     // DEFINE RELATIONSHIPS --------------------------------------------------
     

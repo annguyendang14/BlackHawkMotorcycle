@@ -1,0 +1,72 @@
+project timeline:
+
+initial prase:
+	choosing framework - laravel
+	install, reading doumentation
+	connect and modify database 
+	create initial database data, prepare for first testing ----------------------------------- PROJECT ARE HERE
+First testing:
+	database relationship
+	create basic page to access each table
+Complex addition:
+	adding event on MySQL that track time to update space avalibility
+	testing that (wonder how - event need to run everyday, keep checking)
+	Ecomerce - paypal for now - asking Andy for old code + figure out how to incorporate with laravel
+Interface:
+	Design the interface
+	separate user and admin - this again mixxed up databse =..= maybe need to change it now (the database part)
+	Client Testing???? before jumpin insert real data
+	Transfer data from old app to new app
+	Test Again - in a testing branch and db
+Finishing up:
+	Deployment - Security concern and testing
+	Finished 
+	
+	
+database idea:
+
+Space(row, col, note, user_id ,price,date_added,avalibility) x
+	- avalibility 
+		- updated after the day of the conference and open register
+		- choice: Reserved, Available, Not Available, Registered
+		- using: MySQL event scheduler
+	- user_id
+		- If space is available for open register or not available, user_id set to null
+	
+Order(order_id, user_id, payment_type, status, total_price, unpaid_price) x
+	-total_price : calculate using OrderLine table, maybe using view for it
+	-status: pending, void, authorized, ready_for_shipment, enroute, paid, confirmed, refunded, payment_declined, shipped, archived, awaiting_payment, partial_payment
+	
+SpaceOrderLine(order_id, row, col, price)
+	- price to record the price at time of order, price in space is current price
+	
+ProductOrderLine(order_id,product_id,price)
+	- price to record the price at time of order, price in product is current price
+
+Products(product_id, description, price)
+	
+Date(year,coference,open_register,pre-register)
+User(user_id, login, email, crypted_password, salt, first_name, last_name, middle_initial, nickname) x
+Address(addr1,addr2,city,state,country,postal_code,addr_type,prefered, user_id) x
+Phone(number, phone_type, prefered, user_id) x
+Cart(user_id,space_id,created_at,updated_at) => this will be implemented last, when finishing the actual interface
+	https://www.dunebook.com/5-ways-to-implement-shopping-cart-in-laravel/7/ => cool tutorial
+
+	
+	Model: something about mass assigment =.= not really understand just yet - but for now, dont need to guard any property
+	
+implement https : https://www.dunebook.com/5-best-security-tips-for-a-laravel-application/
+implement admin page: http://laravelcoding.com/blog/laravel-5-beauty-starting-the-admin-area
+=>
+asking: what information you want to save for user?
+	- Multiple address
+	- Multiple phone
+	- name
+	- email
+	- cart
+	- company_name
+	
+asking: do they sell anything else aside from conference space?
+	- if Yes, how do they want to handle shipping (or pickup)
+asking: do they normally have promotional deal? - if yes, needed another table
+	promotion_plan(min_quantity,discount,limit,description,discount_type, created_at, updated_at)

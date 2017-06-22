@@ -9,7 +9,7 @@ class ProductOrderLine extends Model
     // MASS ASSIGNMENT -------------------------------------------------------
     // define which attributes are mass assignable (for security)
     protected $table = 'productorderline';
-    protected $fillable = array('order_id', 'product_id', 'price');
+    protected $fillable = array('order_id', 'product_id', 'price', 'quantity');
 
     // DEFINE RELATIONSHIPS --------------------------------------------------
     

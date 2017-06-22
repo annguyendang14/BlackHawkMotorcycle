@@ -16,9 +16,10 @@ class CreateProductOrderLineTable extends Migration
               
         Schema::create('productOrderLine', function (Blueprint $table) {
 			$table->increments('id');
-			$table->integer('order_id')->unsigned();
+			$table->integer('order_id')->unsigned();		
 			$table->string('product_id',20);
-            $table->decimal('price',7,2);
+			$table->integer('quantity') ;
+            $table->decimal('price',7,2);			
             $table->timestamps();
             
         });

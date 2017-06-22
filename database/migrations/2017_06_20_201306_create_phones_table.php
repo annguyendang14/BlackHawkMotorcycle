@@ -14,16 +14,16 @@ class CreatePhonesTable extends Migration
     public function up()
     {
         //Phone(number, phone_type, prefered, user_id)
-		Schema::create('phone', function (Blueprint $table) {
+		Schema::create('phones', function (Blueprint $table) {
             $table->increments('id');
             $table->string('number',20);
             $table->string('phoneType',20);
-            $table->boolean('prefered');
+            $table->boolean('prefered')->default(False);
             $table->integer('user_id')->unsigned();
 			$table->timestamps();
             
         });
-		Schema::table('phone', function($table) {
+		Schema::table('phones', function($table) {
 			$table->foreign('user_id')->references('id')->on('users');
 			$table->foreign('phoneType')->references('phoneType')->on('phoneTypes');
 		});
@@ -36,6 +36,6 @@ class CreatePhonesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('phone');
+        Schema::dropIfExists('phones');
     }
 }
