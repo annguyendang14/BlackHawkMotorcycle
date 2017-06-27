@@ -25,3 +25,7 @@ Route::get('/form',function(){
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('addresses', 'AddressController');
+
+Route::resource('phones', 'PhoneController');

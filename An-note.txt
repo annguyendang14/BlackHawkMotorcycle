@@ -2,12 +2,12 @@ project timeline:
 
 initial prase:
 	choosing framework - laravel
-	install, reading doumentation
-	connect and modify database 
-	create initial database data, prepare for first testing ----------------------------------- PROJECT ARE HERE
-First testing:
+	install, reading doumentation => custom registration: http://www.easylaravelbook.com/blog/2015/09/25/adding-custom-fields-to-a-laravel-5-registration-form/
+	connect and modify database  => guild: https://scotch.io/tutorials/a-guide-to-using-eloquent-orm-in-laravel
+	create initial database data, prepare for first testing 
+First testing:p;
 	database relationship
-	create basic page to access each table
+	create basic page to access each table ----------------------------------- PROJECT ARE HERE
 Complex addition:
 	adding event on MySQL that track time to update space avalibility
 	testing that (wonder how - event need to run everyday, keep checking)
@@ -15,6 +15,7 @@ Complex addition:
 Interface:
 	Design the interface
 	separate user and admin - this again mixxed up databse =..= maybe need to change it now (the database part)
+		https://laracasts.com/discuss/channels/laravel/user-admin-authentication
 	Client Testing???? before jumpin insert real data
 	Transfer data from old app to new app
 	Test Again - in a testing branch and db
@@ -22,6 +23,9 @@ Finishing up:
 	Deployment - Security concern and testing
 	Finished 
 	
+	
+	Note: adding alert with option before delete stuff
+	validate phone number?
 	
 database idea:
 
@@ -58,15 +62,24 @@ Cart(user_id,space_id,created_at,updated_at) => this will be implemented last, w
 implement https : https://www.dunebook.com/5-best-security-tips-for-a-laravel-application/
 implement admin page: http://laravelcoding.com/blog/laravel-5-beauty-starting-the-admin-area
 =>
-asking: what information you want to save for user?
-	- Multiple address
-	- Multiple phone
-	- name
-	- email
-	- cart
-	- company_name
+question: solved
+	asking: what information you want to save for user?
+		- Multiple address
+		- Multiple phone
+		- name
+		- email
+		- cart
+		- company_name
+		
+	asking: do they sell anything else aside from conference space?
+		- if Yes, how do they want to handle shipping (or pickup)
+	asking: do they normally have promotional deal? - if yes, needed another table
+		promotion_plan(min_quantity,discount,limit,description,discount_type, created_at, updated_at)
+question: unsolved - schedule for later stage of development
+	asking: behavior of note -> would it available to all user to see for each space?
+		how having a note affect the process???
+	asking: order transaction verification ???? how much important is this? especially with check
 	
-asking: do they sell anything else aside from conference space?
-	- if Yes, how do they want to handle shipping (or pickup)
-asking: do they normally have promotional deal? - if yes, needed another table
-	promotion_plan(min_quantity,discount,limit,description,discount_type, created_at, updated_at)
+	
+some useful link:
+	https://stackoverflow.com/questions/34582535/laravel-5-2-use-a-string-as-a-custom-primary-key-for-eloquent-table-becomes-0

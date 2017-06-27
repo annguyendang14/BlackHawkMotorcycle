@@ -14,10 +14,10 @@ class SpaceOrderLine extends Model
     // DEFINE RELATIONSHIPS --------------------------------------------------
     
     public function order() {
-        return $this->belongsTo('Order'); 
+        return $this->belongsTo('App\Order'); 
     }
 	
 	public function space() {
-		return $this->belongsTo('Space');
+		return $this->belongsTo('App\Space');
 	}
 }

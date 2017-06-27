@@ -14,10 +14,10 @@ class Order extends Model
     // DEFINE RELATIONSHIPS --------------------------------------------------
     
     public function user() {
-        return $this->belongsTo('User'); 
+        return $this->belongsTo('App\User'); 
     }
 	
 	public function paymentType() {
-		return $this->hasOne('PaymentType');
+		return $this->hasOne('App\PaymentType');
 	}
 }

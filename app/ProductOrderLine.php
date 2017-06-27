@@ -14,10 +14,10 @@ class ProductOrderLine extends Model
     // DEFINE RELATIONSHIPS --------------------------------------------------
     
     public function order() {
-        return $this->belongsTo('Order'); 
+        return $this->belongsTo('App\Order'); 
     }
 	
 	public function product() {
-		return $this->belongsTo('Product');
+		return $this->belongsTo('App\Product');
 	}
 }

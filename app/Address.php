@@ -14,11 +14,11 @@ class Address extends Model
     // DEFINE RELATIONSHIPS --------------------------------------------------
     
     public function user() {
-        return $this->belongsTo('User'); 
+        return $this->belongsTo('App\User'); 
     }
 	
 	public function addType() {
-		return $this->hasOne('AddType');
+		return $this->hasOne('App\AddType');
 	}
 
     
