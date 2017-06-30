@@ -29,6 +29,10 @@ class PhoneController extends Controller
 			else {
 				$phones = $user->phone;				
 			}
+			$phones = $phones->sortBy(function($phone)
+				{
+				  return $phone->phoneType;
+				});
 			return view('pages\phone', compact('staff', 'phones'));
         }
     }
@@ -53,7 +57,8 @@ class PhoneController extends Controller
      */
     public function store(Request $request)
     {
-        Phone::create($request->all());
+        $request['user_id'] = \Auth::user()->id;
+		Phone::create($request->all());
 		return redirect('phones');
     }
 
@@ -92,6 +97,7 @@ class PhoneController extends Controller
     public function update(Request $request, $id)
     {
         $phone = Phone::find($id);
+		$request['user_id'] = \Auth::user()->id;
 		$phoneData = array_filter($request->all());
 		$phone->fill($phoneData);
 		$phone->save();

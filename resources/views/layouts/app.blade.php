@@ -45,9 +45,16 @@
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
-                        @else
+                        
+						@else
+							@if (Auth::user()->staff)
+								<li><a href="{{ route('users.index') }}">Users</a></li>
+								<li><a href="{{ route('orders-admin.index') }}">Orders</a></li>
+							@else
                             <li><a href="{{ route('addresses.index') }}">Addresses</a></li>
 							<li><a href="{{ route('phones.index') }}">Phones</a></li>
+							@endif
+							<li><a href="{{ route('spaces.index') }}">Spaces</a></li>
 							<li class="dropdown">
 								
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

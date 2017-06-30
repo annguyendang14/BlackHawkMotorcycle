@@ -1,3 +1,8 @@
+IMPORTANT: SET DEFAULT OF AVAILABILITY OF SPACE - RECHECK WITH MIGRATION WHEN DONE WIL TESTING MILESTONE
+IMPORTANT: HIDDEN FIELD IS NOT SAFE -..- HACKER CAN USE IT TO CHANGE WHAT SHOULD BE SET 
+
+
+
 project timeline:
 
 initial prase:
@@ -14,7 +19,6 @@ Complex addition:
 	Ecomerce - paypal for now - asking Andy for old code + figure out how to incorporate with laravel
 Interface:
 	Design the interface
-	separate user and admin - this again mixxed up databse =..= maybe need to change it now (the database part)
 		https://laracasts.com/discuss/channels/laravel/user-admin-authentication
 	Client Testing???? before jumpin insert real data
 	Transfer data from old app to new app
@@ -79,6 +83,8 @@ question: unsolved - schedule for later stage of development
 	asking: behavior of note -> would it available to all user to see for each space?
 		how having a note affect the process???
 	asking: order transaction verification ???? how much important is this? especially with check
+	asking: handle remove user, what happen to all of that user record?
+	asking: can admin assigned order to user? - for now this is not implemented
 	
 	
 some useful link:

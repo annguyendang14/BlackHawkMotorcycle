@@ -8,7 +8,7 @@
 		
 		<div class="form-group">
 			<label>Number</label>
-			<input type="text" name="number" class="form-control" value="{{ $phone->number }}"  required autofocus>
+			<input type="tel" name="number" class="form-control" value="{{ $phone->number }}"  required autofocus>
 		</div>
 		
 		<div class="form-group">
@@ -22,10 +22,6 @@
 					@endif
 				@endforeach
 			</select>
-		</div>
-		
-		<div class="form-group">
-			<input type="hidden" name="user_id" class="form-control" value={{ $user->id }} >
 		</div>
 		
 		<div class="form-group">

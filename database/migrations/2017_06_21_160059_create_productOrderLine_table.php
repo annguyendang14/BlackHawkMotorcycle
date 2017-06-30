@@ -19,12 +19,14 @@ class CreateProductOrderLineTable extends Migration
 			$table->integer('order_id')->unsigned();		
 			$table->string('product_id',20);
 			$table->integer('quantity') ;
-            $table->decimal('price',7,2);			
+            $table->decimal('price',7,2);	
+			$table->integer('address_id')->unsigned();	
             $table->timestamps();
             
         });
 		Schema::table('productOrderLine', function($table) {
 			$table->foreign('order_id')->references('id')->on('orders');
+			$table->foreign('address_id')->references('id')->on('addresses');
 			$table->foreign('product_id')->references('id')->on('products');
 			$table->unique(['order_id','product_id']);
 		});

@@ -38,10 +38,6 @@
 		</div>
 		
 		<div class="form-group">
-			<input type="hidden" name="user_id" class="form-control" value={{ $user->id }} >
-		</div>
-		
-		<div class="form-group">
 			<button type="submit" class="btn btn-block btn-primary">Add Address</button>
 		</div>
 		

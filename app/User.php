@@ -35,4 +35,8 @@ class User extends Authenticatable
 	public function phone(){
 		return $this->hasMany('App\Phone');
 	}
+	
+	public function space(){
+		return $this->hasMany('App\Space');
+	}
 }

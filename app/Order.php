@@ -20,4 +20,12 @@ class Order extends Model
 	public function paymentType() {
 		return $this->hasOne('App\PaymentType');
 	}
+	
+	public function spaceLine() {
+		return $this->hasMany('App\SpaceOrderLine');
+	}
+	
+	public function productLine() {
+		return $this->hasMany('App\ProductOrderLine');
+	}
 }

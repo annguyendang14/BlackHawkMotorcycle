@@ -122,7 +122,7 @@ class orderAppSeeder extends Seeder {
 		// seed our addresses table ------------------------
         // addr1	addr2	city	state	postalCode	prefered	user_id	created_at	updated_at	addType
 
-        Address::create(array(
+        $address1 = Address::create(array(
             'addr1'  => '639 38th st.',
 			'city' => 'RockIsland',
 			'state' => 'IL',
@@ -262,6 +262,7 @@ class orderAppSeeder extends Seeder {
 			'product_id' => $product1->id,
 			'quantity' => 2,
 			'price' => 100,
+			'address_id' => $address1->id,
 		));
 		
 		$this->command->info('The productorderline is added');

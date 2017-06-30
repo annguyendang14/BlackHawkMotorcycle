@@ -14,7 +14,11 @@ class Space extends Model
     // DEFINE RELATIONSHIPS --------------------------------------------------
     
     public function user() {
-        return $this->belongsTo('User'); 
+        return $this->belongsTo('App\User'); 
+    }
+	
+	public function spaceLine() {
+        return $this->hasMany('App\SpaceOrderLine'); 
     }
 	
 }

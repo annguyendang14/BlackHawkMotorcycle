@@ -3,40 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Address;
-use App\AddType;
+use Illuminate\Support\Facades\DB;
+use App\User;
+use App\Space;
 
-class AddressController extends Controller
+class SpaceController extends Controller
 {
-	 public function __construct()
+    public function __construct()
     {
         $this->middleware('auth');
-	}
+
+        $this->middleware('staff')->only('create','store','destroy');
+    }
 	
-    /**
+	/**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
-		if(\Auth::check()) {
-            $user = \Auth::user();
-			$staff = $user->staff;
-			if($staff){
-				$addresses = Address::get();				
-			}
-			else {
-				$addresses = $user->address;				
-			}
-			$addresses = $addresses->sortBy(function($address)
-				{
-				  return $address->addType;
-				});
-			return view('pages\address', compact('staff', 'addresses'));
-        }
-        
+        $spaces = Space::orderBy('row', 'asc')->orderBy('col', 'asc')->paginate(50);
+		$staff = \Auth::user()->staff;
+        return view('pages\spaces', compact('spaces', 'staff'));
     }
 
     /**
@@ -46,9 +35,10 @@ class AddressController extends Controller
      */
     public function create()
     {
+		
 		$user = \Auth::user();
-		$addTypes = AddType::get();
-        return view('pages\address-create', compact('user', 'addTypes'));
+		return view('pages\admin\spaces-create', compact('user'));
+		
     }
 
     /**
@@ -59,9 +49,15 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        $request['user_id'] = \Auth::user()->id;
-		Address::create($request->all());
-		return redirect('addresses');
+        try {
+			$request['user_id'] = \Auth::user()->id;
+			$space = Space::create($request->all());
+			
+			return redirect('spaces'); 
+		}catch(\Exception $e) {
+			$e = 'The space you try to create already exsisted or there are some other errors';
+			return view('error\custom-error', compact('e') );
+		} 
     }
 
     /**
@@ -72,7 +68,7 @@ class AddressController extends Controller
      */
     public function show($id)
     {
-        return redirect('addresses');
+        //
     }
 
     /**
@@ -83,10 +79,15 @@ class AddressController extends Controller
      */
     public function edit($id)
     {
-        $user = \Auth::user();
-		$address = Address::find($id);
-		$addTypes = AddType::get();
-		return view('pages\address-edit', compact('user', 'address', 'addTypes'));
+       
+		$user = \Auth::user();
+		// for admin
+		if ($user->staff) {
+			$space = space::find($id);
+			return view('pages\admin\spaces-edit', compact('user', 'space'));
+		}
+		//for user -> later will be buy page, but now just an error page
+		return view('error\404');
     }
 
     /**
@@ -98,13 +99,13 @@ class AddressController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $address = Address::find($id);
-		$request['user_id'] = \Auth::user()->id;
-		$addressData = array_filter($request->all());
-		$address->fill($addressData);
-		$address->save();
-		return redirect('addresses');
+        //only for admin for now, but available for user later to buy
 		
+		$space = Space::find($id);		
+		$spaceData = array_filter($request->all());
+		$space->fill($spaceData);
+		$space->save();
+		return redirect('spaces');
     }
 
     /**
@@ -115,8 +116,8 @@ class AddressController extends Controller
      */
     public function destroy($id)
     {
-        $address = Address::find($id);
-		$address->delete();
-		return redirect('addresses');
+        $space = Space::find($id);
+		$space->delete();
+		return redirect('spaces');
     }
 }

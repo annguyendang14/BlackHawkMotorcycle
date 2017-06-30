@@ -29,3 +29,20 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('addresses', 'AddressController');
 
 Route::resource('phones', 'PhoneController');
+
+Route::resource('users', 'UserAdminController', ['only' => [
+    'index', 'show', 'destroy', 'create', 'store'
+]]);
+
+Route::resource('spaces', 'SpaceController', ['except' => [
+    'show', 
+]]);
+
+Route::get('orders-admin/status/{status}', 'OrderAdminController@indexStat');
+
+
+Route::resource('orders-admin', 'OrderAdminController', ['except' => [
+    'destroy', 
+]]);
+
+

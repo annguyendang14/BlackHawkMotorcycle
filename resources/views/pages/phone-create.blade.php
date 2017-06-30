@@ -6,7 +6,7 @@
 		
 		<div class="form-group">
 			<label>Phone Number</label>
-			<input type="text" name="number" class="form-control" required autofocus>
+			<input type="tel" name="number" class="form-control" required autofocus>
 		</div>
 		
 		<div class="form-group">
@@ -18,9 +18,6 @@
 			</select>
 		</div>
 		
-		<div class="form-group">
-			<input type="hidden" name="user_id" class="form-control" value={{ $user->id }} >
-		</div>
 		
 		<div class="form-group">
 			<button type="submit" class="btn btn-block btn-primary">Add Phone</button>
