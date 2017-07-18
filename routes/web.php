@@ -15,24 +15,32 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('insert','StudInsertController@insertform');
-Route::post('create','StudInsertController@insert');
-
-Route::get('/form',function(){
-   return view('form');
-});
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('addresses', 'AddressController');
+Route::resource('addresses', 'AddressController', ['except' => [
+    'show', 
+]]);
 
 Route::resource('phones', 'PhoneController');
+
+Route::get('users/search', 'UserAdminController@search');
 
 Route::resource('users', 'UserAdminController', ['only' => [
     'index', 'show', 'destroy', 'create', 'store'
 ]]);
+
+Route::get('user/password_change/{id}/edit', 'UserController@editPassword');
+Route::patch('user/password_change/{id}', 'UserController@updatePassword');
+
+Route::resource('user', 'UserController', ['only' => [
+    'edit', 'update'
+]]);
+
+Route::get('spaces/availability/{availability}', 'SpaceController@indexStat');
+
+Route::get('spaces/search', 'SpaceController@search');
 
 Route::resource('spaces', 'SpaceController', ['except' => [
     'show', 
@@ -42,7 +50,15 @@ Route::get('orders-admin/status/{status}', 'OrderAdminController@indexStat');
 
 
 Route::resource('orders-admin', 'OrderAdminController', ['except' => [
-    'destroy', 
+    'destroy', 'create', 'store'
 ]]);
+
+Route::post('/cart', 'CartController@addToCart');
+Route::get('/cart', 'CartController@show');
+Route::delete('cart/{id}', 'CartController@destroy');
+
+Route::post('/checkout', 'CheckOutController@store');
+
+Route::get('order/{id}', 'OrderAdminController@show');
 
 

@@ -16,7 +16,7 @@ class OrderAdminController extends Controller
     {
         $this->middleware('auth');
 
-        $this->middleware('staff');
+        $this->middleware('staff')->except(['show']);
     }
 	
 	/**
@@ -26,8 +26,9 @@ class OrderAdminController extends Controller
      */
     public function index()
     {
-		$statuses = array('all','pending', 'void', 'authorized', 'ready_for_shipment', 'enroute', 'paid', 'confirmed', 'refunded', 'payment_declined', 'shipped', 'archived', 'awaiting_payment', 'partial_payment'); //this array need to be fixed in both index and indexStat, edit
-		return view('pages\admin\orders-index', compact('statuses')); 
+		/* $statuses = array('all','pending', 'void', 'authorized', 'ready_for_shipment', 'enroute', 'paid', 'confirmed', 'refunded', 'payment_declined', 'shipped', 'archived', 'awaiting_payment', 'partial_payment'); //this array need to be fixed in both index and indexStat, edit
+		return view('pages\admin\orders-index', compact('statuses'));  */
+		return redirect('orders-admin/status/all');
 	}
 	
 	/**
@@ -42,14 +43,17 @@ class OrderAdminController extends Controller
 	
 		//using AJAX later maybe, not for initial testing
 		if (! in_array($status, $statuses)){
-			return 'the status is invalid';
+			
+			$eMes = 'The status is invalid';
+			return view('error\custom-error', compact('eMes') );
 		} elseif ($status == 'all') {
 			$orders = Order::orderBy('updated_at', 'asc')->paginate(50);
-			return view('pages\admin\orders', compact('orders','status')); 
+			
 		} else {
 			$orders = Order::where('status', '=', $status)->orderBy('updated_at', 'asc')->paginate(50);
-			return view('pages\admin\orders', compact('orders','status')); 
+			
 		}
+		return view('pages\admin\orders', compact('orders','status','statuses')); 
     }
 
     /**

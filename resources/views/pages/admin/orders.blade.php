@@ -5,6 +5,19 @@ use App\User;?>
 @section('content')
     
 	<div class="container">
+		<div class="dropdown">
+			<a href="#" class="dropdown-toggle text-center" style="text-decoration: none" data-toggle="dropdown" role="button" aria-expanded="false">
+			View Orders by status <span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
+			
+				@foreach ($statuses as $status1)
+					<li><a href="/orders-admin/status/{{ $status1 }}">{{ $status1 }}</a></li>
+					
+				@endforeach
+			
+			</ul>
+		</div>
 		<h1>{{ ucfirst($status) }} Orders</h1>
 		
 		<!-- <a href="/orders-admin/create" class="btn btn-sm btn-success">

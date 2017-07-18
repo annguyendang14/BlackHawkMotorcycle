@@ -41,11 +41,12 @@ class orderAppSeeder extends Seeder {
 
         // clear our database ------------------------------------------
 		// addresses, addresstypes, orders, paymenttypes, phones, phonetypes, productorderline,products, spaceorderline, spaces, users
-        DB::table('addresses')->delete();
-		DB::table('addresstypes')->delete();		
+        	
 		DB::table('phones')->delete();
 		DB::table('phonetypes')->delete();
 		DB::table('productorderline')->delete();
+		DB::table('addresses')->delete();
+		DB::table('addresstypes')->delete();	
 		DB::table('products')->delete();
 		DB::table('spaceorderline')->delete();
 		DB::table('spaces')->delete();
@@ -63,6 +64,10 @@ class orderAppSeeder extends Seeder {
             'email' => 'root@example.com',
             'password' => bcrypt('root123456'),
         ));
+		
+		// make this admin
+		$userAdmin->staff = True;
+		$userAdmin->save();
 		
 		$userTest = User::create(array(
             'firstName' => 'Tester',

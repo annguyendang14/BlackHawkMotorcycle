@@ -17,7 +17,7 @@ class CreateSpacesTable extends Migration
             $table->decimal('price',7,2);
             $table->enum('availability', ['Reserved', 'Available', 'Not Available', 'Registered'])->default('Available'); //recheck this default - havent test by migrate yet
             $table->timestamps();
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
             
         });
 		Schema::table('spaces', function($table) {

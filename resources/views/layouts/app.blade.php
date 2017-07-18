@@ -12,6 +12,18 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		jQuery(document).ready(function($){
+			 $('.delete').on('submit',function(e){
+				if(!confirm('Do you want to delete this item?')){
+					  e.preventDefault();
+				}
+			  });
+		});
+	</script>
 </head>
 <body>
     <div id="app">
@@ -35,9 +47,9 @@
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
+                    <!-- <ul class="nav navbar-nav">
                         &nbsp;
-                    </ul>
+                    </ul> -->
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
@@ -51,10 +63,10 @@
 								<li><a href="{{ route('users.index') }}">Users</a></li>
 								<li><a href="{{ route('orders-admin.index') }}">Orders</a></li>
 							@else
-                            <li><a href="{{ route('addresses.index') }}">Addresses</a></li>
-							<li><a href="{{ route('phones.index') }}">Phones</a></li>
+                            
 							@endif
 							<li><a href="{{ route('spaces.index') }}">Spaces</a></li>
+							<li><a href="/cart"> <i class="fa fa-shopping-cart"></i> {{Cart::count()}} Item(s)</a></li>
 							<li class="dropdown">
 								
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -63,6 +75,9 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
+										<a href="/users/{{ Auth::user()->id }} ">My profile</a>
+									</li>
+									<li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

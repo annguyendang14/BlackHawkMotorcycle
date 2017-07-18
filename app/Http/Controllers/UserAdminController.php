@@ -9,7 +9,8 @@ class UserAdminController extends Controller
 {
 	public function __construct()
     {
-        $this->middleware('staff');
+        $this->middleware('staff')->except(['show']);
+		$this->middleware('auth');
 	}
 	
     /**
@@ -32,7 +33,16 @@ class UserAdminController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
+        $currentUser = \Auth::user();
+		if ($currentUser->staff){
+			$user = User::find($id);
+		} elseif ($currentUser->id == $id){
+			$user = $currentUser;
+		} else {
+			$eMes = 'You are not authorize to view this page';
+			return view('error\custom-error', compact('eMes') );
+		}
+		$staff = $currentUser->staff;
 		$addresses = $user->address->sortBy(function($address)
 			{
 			  return $address->addType;
@@ -41,7 +51,7 @@ class UserAdminController extends Controller
 			{
 			  return $phone->phoneType;
 			});
-		return view('pages\admin\users-show', compact('user', 'addresses', 'phones'));
+		return view('pages\users-show', compact('user', 'addresses', 'phones', 'staff'));
     }
 	
 	/**
@@ -64,7 +74,16 @@ class UserAdminController extends Controller
     {
         // create a new user object
 		// 'firstName', 'lastName', 'middleInitial', 'Nickname' ,'CompanyName', 'email', 'password',
-        $user           = new User;
+        $this->validate($request, [
+			'firstName' => 'required|string|max:255',
+			'lastName' => 'required|string|max:255',
+			'middleInitial' => 'nullable|string|max:1',
+			'Nickname' => 'nullable|string|max:255',
+			'CompanyName' => 'nullable|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+		]);
+		$user           = new User;
         $user->firstName     = $request->input('firstName');
 		$user->lastName     = $request->input('lastName');
 		$user->middleInitial    = $request->input('middleInitial');
@@ -111,5 +130,26 @@ class UserAdminController extends Controller
         $user = User::find($id);
         $user->delete();        
         return redirect('users');
+    }
+	
+	/**
+     * Search the specified user
+     *
+     *
+     */
+    public function search(Request $request)
+    {
+        $keyword = $request->keyword;
+		
+		$users = User::where('firstName','LIKE','%'.$keyword.'%')
+					->orwhere('lastName','LIKE','%'.$keyword.'%')
+					->orwhere('email','LIKE','%'.$keyword.'%')
+					->orwhere('middleInitial','LIKE','%'.$keyword.'%')
+					->orwhere('Nickname','LIKE','%'.$keyword.'%')
+					->orwhere('CompanyName','LIKE','%'.$keyword.'%')
+					->paginate(50);
+		
+		return view('pages\admin\users', compact('users'));
+		
     }
 }

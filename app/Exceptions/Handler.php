@@ -44,7 +44,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        if ($exception instanceof TokenMismatchException){
+            return redirect(''->with('csrf_error',"Session timeout. Please login and try again"));
+        }
+		
+		return parent::render($request, $exception);
     }
 
     /**

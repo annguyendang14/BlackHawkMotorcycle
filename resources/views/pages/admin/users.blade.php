@@ -4,6 +4,13 @@
 @section('content')
     
 	<div class="container">
+		<div class="pull-right">
+			<form action="/users/search" method="GET">
+				
+				<input type="text" name="keyword">
+				<button type="submit" class="btn btn-primary">Search</button>
+			</form>
+		</div>
 		<a href="/users/create" class="btn btn-sm btn-success">
 			Create a User
 		</a>
@@ -38,7 +45,7 @@
 							<li><a href="/users/{{ $user->id }}" class="btn btn-link">View</a></li>
 							<!--<li><a href="/users/{{ $user->id }}/edit" class="btn btn-link">Edit</a></li>-->
 
-							<li><form action="/users/{{ $user->id }}" method="POST">
+							<li><form class="delete" action="/users/{{ $user->id }}" method="POST">
 								{!! csrf_field() !!}
 								<input type="hidden" name="_method" value="DELETE">
 								<button type="submit" class="btn btn-link">Delete</button>
@@ -47,9 +54,11 @@
 					</td>
 				</tr>
 				@endforeach 
+				
 			</tbody>
 		</table>
-		<div class="text-center">{{ $users->links() }}<div>
+		<div class="text-center">{{ $users->appends(Request::except('page'))->links() }}<div>
 	</div>
+	
 
 @endsection

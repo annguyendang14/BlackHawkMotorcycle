@@ -1,20 +1,18 @@
-<div class="phone-box panel panel-info">
-    <div class="panel-heading">{{ $phone->phoneType }} Phone</div>
-    <div class="panel-body">
-		<span>Number: {{ $phone->number }}</span><br />
+
+<div class="panel-body" style="padding-bottom: 0">
+	<span><strong>{{ $phone->phoneType }} Phone</strong></span><br />
+	<span>Number: {{ $phone->number }}</span><br />
+	
+	<span>Prefered: @if ($phone->prefered) Yes @else No @endif</span><br />
+	@if ($phone->user->id == Auth::user()->id)
 		
-		<span>Prefered: @if ($phone->prefered) Yes @else No @endif</span><br />
-		@if ($staff)
-			<span>User: {{ $phone->user->email }}</span>
-		@else
-			<ul class="list-inline list-unstyled">
-				<li><a class="btn btn-primary" href="/phones/{{ $phone->id }}/edit">Edit</a></li>
-				<li><form action="/phones/{{ $phone->id }}" method="POST">
-					{!! csrf_field() !!}
-					<input type="hidden" name="_method" value="DELETE">
-					<button class="btn btn-primary" type="submit">Remove</button>
-				</form></li>
-			</ul>
-		@endif
-	</div>
+		<ul class="list-inline list-unstyled" style="margin-bottom: 0" >
+			<li><a class="btn btn-primary" href="/phones/{{ $phone->id }}/edit">Edit</a></li>
+			<li><form class="delete" action="/phones/{{ $phone->id }}" method="POST">
+				{!! csrf_field() !!}
+				<input type="hidden" name="_method" value="DELETE">
+				<button class="btn btn-primary" type="submit">Remove</button>
+			</form></li>
+		</ul>
+	@endif
 </div>

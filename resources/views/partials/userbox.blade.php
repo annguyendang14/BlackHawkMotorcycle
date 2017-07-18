@@ -8,6 +8,13 @@
 		<span>Nickname: {{ $user->Nickname }}</span><br />
 		<span>Company Name: {{ $user->CompanyName }}</span><br />
 		<span>Email: {{ $user->email }}</span><br />
-		<!-- May implement this for changing password and edit info for normal user later -->
+		@if ($user->id == Auth::user()->id)
+		
+		<ul class="list-inline list-unstyled " style="margin-bottom: 0" >
+			<li><a class="btn btn-primary" href="/user/{{ $user->id }}/edit">Edit profile</a></li>
+			<li><a class="btn btn-primary" href="/user/password_change/{{ $user->id }}/edit">Change Password</a></li>
+			
+		</ul>
+	@endif
 	</div>
 </div>

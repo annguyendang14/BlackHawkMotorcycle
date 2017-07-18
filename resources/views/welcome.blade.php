@@ -91,5 +91,11 @@
                 </div>
             </div>
         </div>
+		
+		@if (session('csrf_error'))
+			<script language="javascript">
+			alert("{{ session('csrf_error') }}")
+			</script>
+		@endif
     </body>
 </html>

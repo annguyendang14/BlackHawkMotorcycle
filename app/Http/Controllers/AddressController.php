@@ -61,7 +61,7 @@ class AddressController extends Controller
     {
         $request['user_id'] = \Auth::user()->id;
 		Address::create($request->all());
-		return redirect('addresses');
+		return redirect('/users/'.\Auth::user()->id);
     }
 
     /**
@@ -72,7 +72,7 @@ class AddressController extends Controller
      */
     public function show($id)
     {
-        return redirect('addresses');
+        return redirect('/users/'.\Auth::user()->id);
     }
 
     /**
@@ -85,8 +85,13 @@ class AddressController extends Controller
     {
         $user = \Auth::user();
 		$address = Address::find($id);
-		$addTypes = AddType::get();
-		return view('pages\address-edit', compact('user', 'address', 'addTypes'));
+		if ($user->id == $address->user_id){
+			$addTypes = AddType::get();
+			return view('pages\address-edit', compact('user', 'address', 'addTypes'));
+		} else {
+			$eMes = 'You are not authorize to view this page';
+			return view('error\custom-error', compact('eMes') );
+		}
     }
 
     /**
@@ -103,7 +108,7 @@ class AddressController extends Controller
 		$addressData = array_filter($request->all());
 		$address->fill($addressData);
 		$address->save();
-		return redirect('addresses');
+		return redirect('/users/'.\Auth::user()->id);
 		
     }
 
@@ -114,9 +119,10 @@ class AddressController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {	
+		//IMPORTANT: this will fail if address attached to an shipping order, but since it not implemented, it should be fine
         $address = Address::find($id);
 		$address->delete();
-		return redirect('addresses');
+		return redirect('/users/'.\Auth::user()->id);
     }
 }

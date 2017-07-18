@@ -59,7 +59,7 @@ class PhoneController extends Controller
     {
         $request['user_id'] = \Auth::user()->id;
 		Phone::create($request->all());
-		return redirect('phones');
+		return redirect('/users/'.\Auth::user()->id);
     }
 
     /**
@@ -83,8 +83,13 @@ class PhoneController extends Controller
     {
         $user = \Auth::user();
 		$phone = Phone::find($id);
-		$phoneTypes = PhoneType::get();
-		return view('pages\phone-edit', compact('user', 'phone', 'phoneTypes'));
+		if ($user->id == $phone->user_id){
+			$phoneTypes = PhoneType::get();
+			return view('pages\phone-edit', compact('user', 'phone', 'phoneTypes'));
+		} else {
+			$eMes = 'You are not authorize to view this page';
+			return view('error\custom-error', compact('eMes') );
+		}
     }
 
     /**
@@ -101,7 +106,7 @@ class PhoneController extends Controller
 		$phoneData = array_filter($request->all());
 		$phone->fill($phoneData);
 		$phone->save();
-		return redirect('phones');
+		return redirect('/users/'.\Auth::user()->id);
     }
 
     /**
@@ -114,6 +119,6 @@ class PhoneController extends Controller
     {
         $phone = Phone::find($id);
 		$phone->delete();
-		return redirect('phones');
+		return redirect('/users/'.\Auth::user()->id);
     }
 }

@@ -36,7 +36,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">{{ $e }}</div>
+                <div class="title">{{ $eMes }}</div>
             </div>
         </div>
     </body>
