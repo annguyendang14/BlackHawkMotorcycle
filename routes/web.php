@@ -47,7 +47,7 @@ Route::resource('spaces', 'SpaceController', ['except' => [
 ]]);
 
 Route::get('orders-admin/status/{status}', 'OrderAdminController@indexStat');
-
+Route::get('orders-admin/search', 'OrderAdminController@search');
 
 Route::resource('orders-admin', 'OrderAdminController', ['except' => [
     'destroy', 'create', 'store'

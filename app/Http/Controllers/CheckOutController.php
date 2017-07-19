@@ -7,6 +7,7 @@ use Cart;
 use App\Order;
 use App\SpaceOrderLine;
 use App\Space;
+use App\User;
 
 class CheckOutController extends Controller
 {
@@ -18,7 +19,17 @@ class CheckOutController extends Controller
      */
     public function store(Request $request)
     {
-        $request['user_id'] = \Auth::user()->id;
+        if ($request->has('email')){
+			$user = User::where('email','=',$request->email)->first();
+			if ($user === null){
+				$error = array('email' => 'The email entered does not match with any user in the database. Please try again');
+				return redirect()->back()->withErrors($error)->withInput();
+			}
+			
+		} else {
+			$user = \Auth::user();
+		}
+		$request['user_id'] = $user->id;
 		$request['status'] = "pending";
 		$request['total_price'] = Cart::total();
 		$request['unpaid_price'] = Cart::total();
@@ -31,7 +42,7 @@ class CheckOutController extends Controller
 			'space_id' => $item->id,
 			'price' => $item->price,
 			));
-			Space::find($item->id)->update(array('availability' => 'Reserved', 'user_id' => \Auth::user()->id));
+			Space::find($item->id)->update(array('availability' => 'Reserved', 'user_id' => $user->id));
 			/* $space = Space::find($item->id);
 			$space[availability] = "Reserved";
 			$space[user_id] = \Auth::user()->id;

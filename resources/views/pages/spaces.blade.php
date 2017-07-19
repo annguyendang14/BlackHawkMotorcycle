@@ -58,8 +58,10 @@ use App\User;?>
 					<td>{{ $space->availability }}</td>
 					@if ($space->user->staff)
 						<td>Admin</td>
-					@else
+					@elseif ($staff)
 						<td><a href="/users/{{ $space->user_id }}">{{ $space->user->email }}</a></td>
+					@else
+						<td>{{ $space->user->firstName }} {{ $space->user->lastName }}</td>
 					@endif
 					<td>{{ $space->updated_at->diffForHumans() }}</td>
 					
@@ -75,7 +77,8 @@ use App\User;?>
 									<input type="hidden" name="_method" value="DELETE">
 									<button type="submit" class="btn btn-link">Delete</button>
 								</form></li>
-							@elseif($space->availability == 'Available')
+							@endif	
+							@if($space->availability == 'Available')
 								@if( ! Cart::checkById($space->id))
 									<li>
 										<form method="POST" action="{{url('cart')}}">

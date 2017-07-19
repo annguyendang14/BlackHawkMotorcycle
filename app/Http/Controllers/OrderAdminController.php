@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Order;
+use App\User;
 use App\PaymentType;
 use Session;
 use Redirect;
@@ -129,13 +130,27 @@ class OrderAdminController extends Controller
         if (Session::has('backUrl')) {
 		   Session::keep('backUrl');
 		}
+		
 		$order = order::find($id);		
+		
+		if ($request->status == 'paid'){
+			$spaceLines = $order->spaceLine;
+			foreach ($spaceLines as $spaceLine){
+				$spaceLine->space->update(array('availability' => 'Registered'));
+			}
+		} elseif ($request->status == 'cancel' or $request->status == 'void' or $request->status == 'refunded' ){
+			$spaceLines = $order->spaceLine;
+			foreach ($spaceLines as $spaceLine){
+				$spaceLine->space->update(array('availability' => 'Available'));
+			}
+		}
+		//more to come when mock test with client
 		$orderData = array_filter($request->all());
 		$order->fill($orderData);
 		$order->save();
 		return ($url = Session::get('backUrl')) 
 		   ? Redirect::to($url) 
-		   : Redirect::route('orders-admin.index');
+		   : Redirect::route('orders-admin.index'); 
     }
 
     /**
@@ -148,5 +163,27 @@ class OrderAdminController extends Controller
     public function destroy($id)
     {
         //
+    }
+	
+	/**
+     * Search the specified user
+     *
+     *
+     */
+    public function search(Request $request)
+    {
+        $keyword = $request->keyword;
+		
+		$orders = Order::whereIn('user_id', function($query) use ($keyword){
+						$query->select('id')
+						->from(with(new User)->getTable())
+						->where('email','LIKE','%'.$keyword.'%');
+					})
+					->orwhere('id','=',$keyword)					
+					->paginate(50);
+		
+		$statuses = array('all','pending', 'void', 'authorized', 'ready_for_shipment', 'enroute', 'paid', 'confirmed', 'refunded', 'payment_declined', 'shipped', 'archived', 'awaiting_payment', 'partial_payment');
+		$status = 'all';
+		return view('pages\admin\orders', compact('orders','status','statuses')); 
     }
 }

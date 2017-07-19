@@ -5,6 +5,13 @@ use App\User;?>
 @section('content')
     
 	<div class="container">
+		<div class="pull-right">
+			<form action="/orders-admin/search" method="GET">
+				
+				<input type="text" name="keyword">
+				<button type="submit" class="btn btn-primary">Search</button>
+			</form>
+		</div>
 		<div class="dropdown">
 			<a href="#" class="dropdown-toggle text-center" style="text-decoration: none" data-toggle="dropdown" role="button" aria-expanded="false">
 			View Orders by status <span class="caret"></span>

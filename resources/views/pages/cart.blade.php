@@ -75,10 +75,30 @@
 						<label>Payment Type</label>
 						<select name="paymentType">
 							@foreach ($paymentTypes as $paymentType)
-								<option value="{{ $paymentType->paymentType }}">{{ $paymentType->paymentType }}</option>
+								@if (Auth::user()->staff and $paymentType->paymentType == "Paypal")
+									<option value="{{ $paymentType->paymentType }}" disabled>{{ $paymentType->paymentType }}</option>
+								@else 
+									<option value="{{ $paymentType->paymentType }}">{{ $paymentType->paymentType }}</option>
+								@endif
 							@endforeach
 						</select>
 					</div>
+					
+					@if (Auth::user()->staff)
+						<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <label for="email" class=" control-label">User E-Mail</label>
+
+                            <div>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+					@endif
 					
 					<div class="form-group">
 						<button type="submit" class="btn btn-block btn-primary">Check Out</button>
