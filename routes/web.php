@@ -27,6 +27,9 @@ Route::resource('phones', 'PhoneController');
 
 Route::get('users/search', 'UserAdminController@search');
 
+Route::patch('users/togglestaff/{id}', 'UserAdminController@toggleStaffStatus');
+Route::patch('users/toggleactive/{id}', 'UserAdminController@toggleActiveStatus');
+
 Route::resource('users', 'UserAdminController', ['only' => [
     'index', 'show', 'destroy', 'create', 'store'
 ]]);

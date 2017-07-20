@@ -40,7 +40,7 @@ class OrderAdminController extends Controller
     public function indexStat($status)
     {
         Session::flash('backUrl', Re::fullUrl());
-		$statuses = array('all','pending', 'void', 'authorized', 'ready_for_shipment', 'enroute', 'paid', 'confirmed', 'refunded', 'payment_declined', 'shipped', 'archived', 'awaiting_payment', 'partial_payment');
+		$statuses = array('all','pending', 'void', 'authorized', 'ready_for_shipment', 'enroute', 'paid', 'confirmed', 'refunded', 'payment_declined', 'shipped', 'archived', 'awaiting_payment', 'partial_payment', 'cancelled');
 	
 		//using AJAX later maybe, not for initial testing
 		if (! in_array($status, $statuses)){
@@ -113,7 +113,7 @@ class OrderAdminController extends Controller
 		$user = \Auth::user();
 		$order = order::find($id);
 		$paymentTypes = PaymentType::get();
-		$statuses = array('pending', 'void', 'authorized', 'ready_for_shipment', 'enroute', 'paid', 'confirmed', 'refunded', 'payment_declined', 'shipped', 'archived', 'awaiting_payment', 'partial_payment');
+		$statuses = array('pending', 'void', 'authorized', 'ready_for_shipment', 'enroute', 'paid', 'confirmed', 'refunded', 'payment_declined', 'shipped', 'archived', 'awaiting_payment', 'partial_payment', 'cancelled');
 		return view('pages\admin\orders-edit', compact('user', 'order', 'paymentTypes','statuses'));
 	
     }
@@ -182,7 +182,7 @@ class OrderAdminController extends Controller
 					->orwhere('id','=',$keyword)					
 					->paginate(50);
 		
-		$statuses = array('all','pending', 'void', 'authorized', 'ready_for_shipment', 'enroute', 'paid', 'confirmed', 'refunded', 'payment_declined', 'shipped', 'archived', 'awaiting_payment', 'partial_payment');
+		$statuses = array('all','pending', 'void', 'authorized', 'ready_for_shipment', 'enroute', 'paid', 'confirmed', 'refunded', 'payment_declined', 'shipped', 'archived', 'awaiting_payment', 'partial_payment', 'cancelled');
 		$status = 'all';
 		return view('pages\admin\orders', compact('orders','status','statuses')); 
     }

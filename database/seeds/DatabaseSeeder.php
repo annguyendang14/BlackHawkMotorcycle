@@ -162,7 +162,7 @@ class orderAppSeeder extends Seeder {
 		// seed our orders table ------------------------
 		// paymentType	status	total_price	unpaid_price	user_id
 		
-		$order1 = Order::create(array(
+		/* $order1 = Order::create(array(
 			'paymentType' => $Paypal->paymentType,
 			'status' => 'pending',
 			'total_price' => 100,
@@ -186,7 +186,7 @@ class orderAppSeeder extends Seeder {
 			'user_id' => $userAdmin->id,
 		));
 		
-		$this->command->info('The order is added');
+		$this->command->info('The order is added'); */
 		
 		// seed our spaces table ------------------------
 		// row	col	note	price	availability	created_at	updated_at	user_id
@@ -195,31 +195,31 @@ class orderAppSeeder extends Seeder {
 			'row' => '1',
 			'col' => 'A',
 			'price' =>  50,
-			'availability' => 'Reserved',
-			'user_id' => $userTest->id,			
+			'availability' => 'Available',
+			'user_id' => $userAdmin->id,			
 		));
 		
 		$space2 = Space::create(array(
 			'row' => '1',
 			'col' => 'B',
 			'price' => 50,
-			'availability' => 'Reserved',
-			'user_id' => $userTest->id,			
+			'availability' => 'Available',
+			'user_id' => $userAdmin->id,			
 		));
 		
 		$space3 = Space::create(array(
 			'row' => '2',
 			'col' => 'A',
 			'price' => 50,
-			'availability' => 'Reserved',
-			'user_id' => $userTest->id,			
+			'availability' => 'Available',
+			'user_id' => $userAdmin->id,			
 		));
 		
 		$space4 = Space::create(array(
 			'row' => '2',
 			'col' => 'B',
 			'price' => 50,
-			'availability' => 'Reserved',
+			'availability' => 'Available',
 			'user_id' => $userAdmin->id,			
 		));
 		
@@ -228,18 +228,18 @@ class orderAppSeeder extends Seeder {
 		// seed our products table ------------------------
 		// id price	description	created_at	updated_at	in stock
 
-		
+		/* 
 		$product1 = Product::create(array(
 			'id' => 'OFFBlueS',
 			'price' => 25,
 			'description' => 'official tshirt in blue size S',
 			'in stock' => 100,
 		));
-		
+		 */
 		$this->command->info('The products added');
 		
 		// seed our spaceorderline table ------------------------
-		
+		/* 
 		SpaceOrderLine::create(array(
 			'order_id' => $order1->id,
 			'space_id' => $space1->id,
@@ -258,11 +258,11 @@ class orderAppSeeder extends Seeder {
 			'price' => 50,
 		));
 		
-		$this->command->info('The spaceorderline is added');
+		$this->command->info('The spaceorderline is added'); */
 		
 		// seed our productorderline table ------------------------
 		
-		ProductOrderLine::create(array(
+		/* ProductOrderLine::create(array(
 			'order_id' => $order1->id,
 			'product_id' => $product1->id,
 			'quantity' => 2,
@@ -272,21 +272,9 @@ class orderAppSeeder extends Seeder {
 		
 		$this->command->info('The productorderline is added');
 		 
-		
+		 */
 
-        /* // link our bears to picnics ---------------------
-        // for our purposes we'll just add all bears to both picnics for our many to many relationship
-        $bearLawly->picnics()->attach($picnicYellowstone->id);
-        $bearLawly->picnics()->attach($picnicGrandCanyon->id);
-
-        $bearCerms->picnics()->attach($picnicYellowstone->id);
-        $bearCerms->picnics()->attach($picnicGrandCanyon->id);
-
-        $bearAdobot->picnics()->attach($picnicYellowstone->id);
-        $bearAdobot->picnics()->attach($picnicGrandCanyon->id);
-
-        $this->command->info('They are terrorizing picnics!'); */
-
+       
     }
 
 }

@@ -56,7 +56,7 @@ use App\User;?>
 					<td>{{ $space->note }}</td>
 					<td>{{ $space->price }}</td>
 					<td>{{ $space->availability }}</td>
-					@if ($space->user->staff)
+					@if ($space->user->staff and !Auth::user()->staff)
 						<td>Admin</td>
 					@elseif ($staff)
 						<td><a href="/users/{{ $space->user_id }}">{{ $space->user->email }}</a></td>

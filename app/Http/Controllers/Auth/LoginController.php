@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -35,5 +37,43 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+	
+	/**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        return ['email'=>$request->{$this->username()}, 'password'=>$request->password, 'active' => '1'];
+		//return $request->only($this->username(), 'password');
+    }
+	
+	/**
+     * Get the failed login response instance.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        if (User::where('email','=',$request->{$this->username()})->first() != null){
+			$errors = [$this->username() => 'This account have been deactivated by the Admin, please contact the Admin if you wish to reactivate it'];
+			
+		} else {
+			$errors = [$this->username() => trans('auth.failed')];
+		}
+	
+		
+
+        if ($request->expectsJson()) {
+            return response()->json($errors, 422);
+        }
+
+        return redirect()->back()
+            ->withInput($request->only($this->username(), 'remember'))
+            ->withErrors($errors);
     }
 }

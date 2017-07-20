@@ -53,11 +53,9 @@ use App\User;?>
 				<tr>
 					<td>{{ $order->id }}</td>
 					<td>{{ $order->status }}</td>
-					@if ($order->user->staff)
-						<td>Admin</td>
-					@else
-						<td><a href="/users/{{ $order->user_id }}">{{ $order->user->email }}</a></td>
-					@endif
+					
+					<td><a href="/users/{{ $order->user_id }}">{{ $order->user->email }}</a></td>
+					
 					<td>{{ $order->paymentType }}</td>
 					<td>{{ $order->spaceLine->count() }}</td>
 					<td>{{ $order->total_price }}</td>

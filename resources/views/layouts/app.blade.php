@@ -22,6 +22,16 @@
 					  e.preventDefault();
 				}
 			  });
+			 $('.togglestaff').on('submit',function(e){
+				if(!confirm('Do you want to change this user staff status?')){
+					  e.preventDefault();
+				}
+			  });
+			 $('.toggleactive').on('submit',function(e){
+				if(!confirm('Do you want to change this user active status? Inactive user account will not be able to login ')){
+					  e.preventDefault();
+				}
+			  });
 		});
 	</script>
 </head>

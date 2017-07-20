@@ -25,6 +25,7 @@
 					<th>Nickname</th>
 					<th>Company Name</th>
 					<th>Email</th>
+					<th>Status</th>
 					<th>Joined</th>
 					<th></th>
 				</tr>
@@ -39,6 +40,16 @@
 					<td>{{ $user->Nickname }}</td>
 					<td>{{ $user->CompanyName }}</td>
 					<td>{{ $user->email }}</td>
+					<td>
+						@if ($user->active)
+							Active
+						@else
+							Inactive
+						@endif
+						@if ($user->staff)
+							, Staff
+						@endif
+					</td>
 					<td>{{ $user->created_at->diffForHumans() }}</td>
 					<td>
 						<ul class="list-inline list-unstyled">

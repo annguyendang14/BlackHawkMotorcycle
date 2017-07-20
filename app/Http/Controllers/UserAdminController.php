@@ -152,4 +152,30 @@ class UserAdminController extends Controller
 		return view('pages\admin\users', compact('users'));
 		
     }
+	
+	/**
+     * toggle user staff status
+     *
+     *
+     */
+    public function toggleStaffStatus(Request $request, $id){
+		$user = User::find($id);
+		$staff = $user->staff;
+		$user->staff = !$staff;
+		$user->save();
+		return \Redirect::back();
+	}
+	
+	/**
+     * toggle user active status
+     *
+     *
+     */
+    public function toggleActiveStatus(Request $request, $id){
+		$user = User::find($id);
+		$active = $user->active;
+		$user->active = !$active;
+		$user->save();
+		return \Redirect::back();
+	}
 }
