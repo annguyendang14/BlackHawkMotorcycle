@@ -5,27 +5,29 @@ use App\User;?>
 @section('content')
     
 	<div class="container">
-		<div class="pull-right">
-			<form action="/orders-admin/search" method="GET">
-				
-				<input type="text" name="keyword">
-				<button type="submit" class="btn btn-primary">Search</button>
-			</form>
-		</div>
-		<div class="dropdown">
-			<a href="#" class="dropdown-toggle text-center" style="text-decoration: none" data-toggle="dropdown" role="button" aria-expanded="false">
-			View Orders by status <span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-			
-				@foreach ($statuses as $status1)
-					<li><a href="/orders-admin/status/{{ $status1 }}">{{ $status1 }}</a></li>
+		@if (Auth::user()->staff)
+			<div class="pull-right">
+				<form action="/orders-admin/search" method="GET">
 					
-				@endforeach
-			
-			</ul>
-		</div>
-		<h1>{{ ucfirst($status) }} Orders</h1>
+					<input type="text" name="keyword">
+					<button type="submit" class="btn btn-primary">Search</button>
+				</form>
+			</div>
+			<div class="dropdown">
+				<a href="#" class="dropdown-toggle text-center" style="text-decoration: none" data-toggle="dropdown" role="button" aria-expanded="false">
+				View Orders by status <span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+				
+					@foreach ($statuses as $status1)
+						<li><a href="/orders-admin/status/{{ $status1 }}">{{ $status1 }}</a></li>
+						
+					@endforeach
+				
+				</ul>
+			</div>
+			<h1>{{ ucfirst($status) }} Orders</h1>
+		@endif
 		
 		<!-- <a href="/orders-admin/create" class="btn btn-sm btn-success">
 			Create a order
@@ -66,9 +68,13 @@ use App\User;?>
 					
 					<td>
 						<ul class="list-inline list-unstyled">
-							<li><a href="/orders-admin/{{ $order->id }}" class="btn btn-link">View</a></li>
-							
-							<li><a href="/orders-admin/{{ $order->id }}/edit" class="btn btn-link">Edit</a></li>
+							@if (Auth::user()->staff)
+								<li><a href="/orders-admin/{{ $order->id }}" class="btn btn-link">View</a></li>
+								
+								<li><a href="/orders-admin/{{ $order->id }}/edit" class="btn btn-link">Edit</a></li>
+							@else
+								<li><a href="/myorder/{{ $order->id }}" class="btn btn-link">View</a></li>
+							@endif
 
 							<!--<li><form action="/orders-admin/{{ $order->id }}" method="POST">
 								{!! csrf_field() !!}

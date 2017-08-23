@@ -69,7 +69,9 @@
                             <li><a href="{{ route('register') }}">Register</a></li>
                         
 						@else
+							<li><a href="{{ route('home') }}">Home</a></li>
 							@if (Auth::user()->staff)
+								<li><a href="/systemdate">System Date</a></li>
 								<li><a href="{{ route('users.index') }}">Users</a></li>
 								<li><a href="{{ route('orders-admin.index') }}">Orders</a></li>
 							@else
@@ -86,6 +88,9 @@
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
 										<a href="/users/{{ Auth::user()->id }} ">My profile</a>
+										@if (! Auth::user()->staff)
+											<a href="/myorder">My order</a>
+										@endif
 									</li>
 									<li>
                                         <a href="{{ route('logout') }}"

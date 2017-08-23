@@ -15,17 +15,19 @@ class CartController extends Controller
 		if (Re::isMethod('post')) {
 			$space_id = Re::get('space_id');
 			$space = Space::find($space_id);
-			$name = $space->row . $space->col;
-			
-			//check if the space already added to cart
-			//Cart::restore(\Auth::user()->id);
-			$cart = Cart::content();
-			
-			if (! Cart::checkById($space->id)){
-				Cart::add(array('id' => $space_id, 'name' => $name, 'qty' => 1, 'price' => $space->price));
+			if ($space->availability == "Available" or ($space->availability == "Not Available" and $space->user_id == \Auth::user()->id)) {
+				$name = $space->row . $space->col;
 				
-				Cart::store(\Auth::user()->id);
+				//check if the space already added to cart
+				//Cart::restore(\Auth::user()->id);
+				$cart = Cart::content();
 				
+				if (! Cart::checkById($space->id)){
+					Cart::add(array('id' => $space_id, 'name' => $name, 'qty' => 1, 'price' => $space->price));
+					
+					Cart::store(\Auth::user()->id);
+					
+				} 
 			}
 		}
 

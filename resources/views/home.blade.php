@@ -9,7 +9,10 @@
 
                 <div class="panel-body">
                     You are logged in!
-					
+					@if ($closeRegistration and $spaces > 0)
+						<p> You have {{ $spaces }} space(s) reserved for registration before Open Registration on {{ $openString }}</p>
+						<a href="/reserve" class="btn btn-primary" role="button">View Reserved Spaces</a>
+					@endif
 					
                 </div>
             </div>

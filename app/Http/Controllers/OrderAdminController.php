@@ -48,10 +48,10 @@ class OrderAdminController extends Controller
 			$eMes = 'The status is invalid';
 			return view('error\custom-error', compact('eMes') );
 		} elseif ($status == 'all') {
-			$orders = Order::orderBy('updated_at', 'asc')->paginate(50);
+			$orders = Order::orderBy('updated_at', 'des')->paginate(50);
 			
 		} else {
-			$orders = Order::where('status', '=', $status)->orderBy('updated_at', 'asc')->paginate(50);
+			$orders = Order::where('status', '=', $status)->orderBy('updated_at', 'des')->paginate(50);
 			
 		}
 		return view('pages\admin\orders', compact('orders','status','statuses')); 

@@ -32,6 +32,7 @@ class SpaceController extends Controller
 		$staff = \Auth::user()->staff;
         return view('pages\spaces', compact('spaces', 'staff')); */
 		return redirect('spaces/availability/all');
+		
     }
 	
 	/**
@@ -56,7 +57,7 @@ class SpaceController extends Controller
 			
 		}
 		$staff = \Auth::user()->staff;
-        return view('pages\spaces', compact('spaces', 'staff', 'availabilities'));
+		return view('pages\spaces', compact('spaces', 'staff', 'availabilities'));
     }
 
     /**

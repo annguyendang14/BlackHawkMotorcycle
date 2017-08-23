@@ -59,8 +59,9 @@ class LoginController extends Controller
      */
     protected function sendFailedLoginResponse(Request $request)
     {
-        if (User::where('email','=',$request->{$this->username()})->first() != null){
-			$errors = [$this->username() => 'This account have been deactivated by the Admin, please contact the Admin if you wish to reactivate it'];
+        $user = User::where('email','=',$request->{$this->username()})->first();
+		if ($user != null and !$user->active){
+			$errors = [$this->username() => 'This account was deactivated by the Admin, please contact the Admin if you wish to reactivate it'];
 			
 		} else {
 			$errors = [$this->username() => trans('auth.failed')];

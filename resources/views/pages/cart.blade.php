@@ -3,7 +3,15 @@
 @section('content')
 <section id="cart_items">
     <div class="container">
-        
+       
+		@if ($errors->has('general'))
+			<div class="container" style = "margin-bottom:16px">
+				<span class="alert alert-danger">
+					<strong>{{ $errors->first('general') }}</strong>
+				</span>
+			</div>
+		@endif
+		 
         <div class="table-responsive cart_info">
             @if(count($cart))
             <table class="table table-condensed">
@@ -11,7 +19,7 @@
                     <tr class="cart_menu">
                         
                         <td class="description">Space</td>
-                        <td class="price">Price</td>
+						<td class="price">Price</td>
                         <td class="quantity">Quantity</td>
                         <td class="total">Total</td>
                         <td></td>

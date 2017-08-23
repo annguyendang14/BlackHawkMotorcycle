@@ -64,4 +64,12 @@ Route::post('/checkout', 'CheckOutController@store');
 
 Route::get('order/{id}', 'OrderAdminController@show');
 
+Route::get('myorder', 'OrderUserController@index');
 
+Route::get('myorder/{id}', 'OrderUserController@show');
+
+Route::get('systemdate', 'SystemDateController@show');
+
+Route::patch('systemdate', 'SystemDateController@update');
+
+Route::get('reserve', 'PreRegisterController@show');
