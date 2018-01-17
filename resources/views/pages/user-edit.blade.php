@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Profile Update</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="\user\{{ $user->id }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('user.update', ['id' => $user->id] ) }}">
                         {{ csrf_field() }}
 						<input type="hidden" name="_method" value="PATCH">
 

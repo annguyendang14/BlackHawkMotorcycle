@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-	<form action="/spaces" method="POST">
+	<form action="{{ route('spaces.index') }}" method="POST">
 		{!! csrf_field() !!}
 		<div class="form-group">
 			<label>Row</label>

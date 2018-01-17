@@ -41,7 +41,7 @@
                             <p class="cart_total_price">${{$item->subtotal}}</p>
                         </td>
                         <td class="cart_delete col-xs-1">
-                            <form class="col-xs-12" action="/cart/{{ $item->rowId }}" method="POST">
+                            <form class="col-xs-12" action="{{ route('cart.delete', ['id' => $item->rowId] ) }}" method="POST">
 								{!! csrf_field() !!}
 								<input type="hidden" name="_method" value="DELETE">
 								<button type="submit" class="btn btn-link"><i class="fa fa-times"></i></button>
@@ -76,7 +76,7 @@
 				</tbody>
 			</table>
 			<div>
-				<form action="/checkout" method="POST">
+				<form action="{{ route('checkout') }}" method="POST">
 					{!! csrf_field() !!}
 					
 					<div class="form-group">

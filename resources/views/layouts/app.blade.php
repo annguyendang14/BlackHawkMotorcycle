@@ -71,14 +71,14 @@
 						@else
 							<li><a href="{{ route('home') }}">Home</a></li>
 							@if (Auth::user()->staff)
-								<li><a href="/systemdate">System Date</a></li>
+								<li><a href="{{ route('systemdate') }}">System Date</a></li>
 								<li><a href="{{ route('users.index') }}">Users</a></li>
 								<li><a href="{{ route('orders-admin.index') }}">Orders</a></li>
 							@else
                             
 							@endif
 							<li><a href="{{ route('spaces.index') }}">Spaces</a></li>
-							<li><a href="/cart"> <i class="fa fa-shopping-cart"></i> {{Cart::count()}} Item(s)</a></li>
+							<li><a href="{{ route('cart') }}"> <i class="fa fa-shopping-cart"></i> {{Cart::count()}} Item(s)</a></li>
 							<li class="dropdown">
 								
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -87,9 +87,9 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-										<a href="/users/{{ Auth::user()->id }} ">My profile</a>
+										<a href="{{ route('users.show', ['id' => Auth::user()->id] ) }}">My profile</a>
 										@if (! Auth::user()->staff)
-											<a href="/myorder">My order</a>
+											<a href="{{ route('myorder.index') }}">My order</a>
 										@endif
 									</li>
 									<li>

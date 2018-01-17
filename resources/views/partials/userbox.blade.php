@@ -22,15 +22,15 @@
 		
 		
 			<ul class="list-inline list-unstyled " style="margin-bottom: 0" >
-				<li><a class="btn btn-primary" href="/user/{{ $user->id }}/edit">Edit profile</a></li>
-				<li><a class="btn btn-primary" href="/user/password_change/{{ $user->id }}/edit">Change Password</a></li>
+				<li><a class="btn btn-primary" href="{{ route('user.edit', ['id' => $user->id] ) }}">Edit profile</a></li>
+				<li><a class="btn btn-primary" href="{{ route('user.password', ['id' => $user->id] ) }}">Change Password</a></li>
 				
 			</ul>
 		@endif
 		@if (Auth::user()->staff)
 			
 			<ul class="list-inline list-unstyled " style="margin-bottom: 0" >
-				<li><form class="togglestaff" action="/users/togglestaff/{{ $user->id }}" method="POST">
+				<li><form class="togglestaff" action="{{ route('users.togglestaff', ['id' => $user->id] ) }}" method="POST">
 					{!! csrf_field() !!}
 					<input type="hidden" name="_method" value="PATCH">
 					<button type="submit" class="btn btn-primary">
@@ -42,7 +42,7 @@
 					</button>
 				</form></li>
 				
-				<li><form class="toggleactive" action="/users/toggleactive/{{ $user->id }}" method="POST">
+				<li><form class="toggleactive" action="{{ route('users.toggleactive', ['id' => $user->id] ) }}" method="POST">
 					{!! csrf_field() !!}
 					<input type="hidden" name="_method" value="PATCH">
 					<button type="submit" class="btn btn-primary">

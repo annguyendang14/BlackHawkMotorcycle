@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-	<form action="/spaces/{{ $space->id }}" method="POST">
+	<form action="{{ route('spaces.update', ['id' => $space->id] ) }}" method="POST">
 		{!! csrf_field() !!}
 		<input type="hidden" name="_method" value="PATCH">
 		<div class="form-group">

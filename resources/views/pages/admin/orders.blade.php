@@ -7,7 +7,7 @@ use App\User;?>
 	<div class="container">
 		@if (Auth::user()->staff)
 			<div class="pull-right">
-				<form action="/orders-admin/search" method="GET">
+				<form action="{{ route('orders-admin.search') }}" method="GET">
 					
 					<input type="text" name="keyword">
 					<button type="submit" class="btn btn-primary">Search</button>
@@ -20,7 +20,7 @@ use App\User;?>
 				<ul class="dropdown-menu">
 				
 					@foreach ($statuses as $status1)
-						<li><a href="/orders-admin/status/{{ $status1 }}">{{ $status1 }}</a></li>
+						<li><a href="{{ route('orders-admin.status', ['status' => $status1 ]) }}">{{ $status1 }}</a></li>
 						
 					@endforeach
 				
@@ -56,7 +56,7 @@ use App\User;?>
 					<td>{{ $order->id }}</td>
 					<td>{{ $order->status }}</td>
 					
-					<td><a href="/users/{{ $order->user_id }}">{{ $order->user->email }}</a></td>
+					<td><a href="{{ route('users.show', ['id' => $order->user_id] ) }}">{{ $order->user->email }}</a></td>
 					
 					<td>{{ $order->paymentType }}</td>
 					<td>{{ $order->spaceLine->count() }}</td>
@@ -69,11 +69,11 @@ use App\User;?>
 					<td>
 						<ul class="list-inline list-unstyled">
 							@if (Auth::user()->staff)
-								<li><a href="/orders-admin/{{ $order->id }}" class="btn btn-link">View</a></li>
+								<li><a href="{{ route('orders-admin.show', ['orders-admin' => $order->id] ) }}" class="btn btn-link">View</a></li>
 								
-								<li><a href="/orders-admin/{{ $order->id }}/edit" class="btn btn-link">Edit</a></li>
+								<li><a href="{{ route('orders-admin.edit', ['orders-admin' => $order->id] ) }}" class="btn btn-link">Edit</a></li>
 							@else
-								<li><a href="/myorder/{{ $order->id }}" class="btn btn-link">View</a></li>
+								<li><a href="{{ route('myorder.show', ['id' => $order->id] ) }}" class="btn btn-link">View</a></li>
 							@endif
 
 							<!--<li><form action="/orders-admin/{{ $order->id }}" method="POST">

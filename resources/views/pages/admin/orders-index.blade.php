@@ -3,7 +3,7 @@ use App\User;?>
 @extends('layouts.app')
 
 @section('content')
-    
+    <!-- this will not be use since OrderAdminController.index go to all -->
 	<div class="container">
 		
 		<div class="dropdown">

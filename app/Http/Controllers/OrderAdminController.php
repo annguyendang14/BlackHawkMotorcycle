@@ -133,6 +133,7 @@ class OrderAdminController extends Controller
 		
 		$order = order::find($id);		
 		
+		
 		if ($request->status == 'paid'){
 			$spaceLines = $order->spaceLine;
 			foreach ($spaceLines as $spaceLine){
@@ -145,6 +146,10 @@ class OrderAdminController extends Controller
 			}
 		}
 		//more to come when mock test with client
+		
+		if ($request->unpaid_price == 0){
+			$request['unpaid_price'] = "00";
+		}
 		$orderData = array_filter($request->all());
 		$order->fill($orderData);
 		$order->save();

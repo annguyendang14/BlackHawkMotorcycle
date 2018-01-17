@@ -1,8 +1,13 @@
 IMPORTANT: SET DEFAULT OF AVAILABILITY OF SPACE - RECHECK WITH MIGRATION WHEN DONE WIL TESTING MILESTONE
 IMPORTANT: HIDDEN FIELD IS NOT SAFE -..- HACKER CAN USE IT TO CHANGE WHAT SHOULD BE SET ---- solved
+CHECK FOR BUG: REQUEST FOR input of 0 => not update
+	Solution: add this check in the controller 
+		if ($request->unpaid_price == 0){
+			$request['unpaid_price'] = "00";
+		}
+Check all uri, change all to route	-> seem to be done by now	
 
-
-
+		
 project timeline:
 
 initial prase:

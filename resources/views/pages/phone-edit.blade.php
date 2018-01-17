@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-	<form action="/phones/{{ $phone->id }}" method="POST">
+	<form action="{{ route('phones.update', ['id' => $phone->id] ) }}" method="POST">
 		{!! csrf_field() !!}
 		
 		<input type="hidden" name="_method" value="PATCH">

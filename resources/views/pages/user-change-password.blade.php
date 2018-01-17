@@ -2,7 +2,7 @@
 
 @section('content')
 	
-	<form id="form-change-password" role="form" method="POST" action="\user\password_change\{{ $user->id }}" novalidate class="form-horizontal">
+	<form id="form-change-password" role="form" method="POST" action="{{ route('user.passwordedit', ['id' => $user->id] ) }}" novalidate class="form-horizontal">
 		 {{ csrf_field() }}
 		 <input type="hidden" name="_method" value="PATCH">
 	  <div class="col-md-9">             

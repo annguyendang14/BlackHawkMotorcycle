@@ -8,7 +8,7 @@
 		@if ($order->user->staff)
 			Admin
 		@else
-			<a href="/users/{{ $order->user_id }}">{{ $order->user->email }}</a>
+			<a href="{{ route('users.show', ['id' => $order->user_id] ) }}">{{ $order->user->email }}</a>
 		@endif
 		<br />
 		<strong>Status: </strong>{{ $order->status }}

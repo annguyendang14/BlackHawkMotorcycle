@@ -11,8 +11,8 @@
 	@if ($address->user->id == Auth::user()->id)
 		
 		<ul class="list-inline list-unstyled " style="margin-bottom: 0" >
-			<li><a class="btn btn-primary" href="/addresses/{{ $address->id }}/edit">Edit</a></li>
-			<li><form class="delete" action="/addresses/{{ $address->id }}" method="POST">
+			<li><a class="btn btn-primary" href="{{ route('addresses.edit', ['id' => $address->id] ) }}">Edit</a></li>
+			<li><form class="delete" action="{{ route('addresses.destroy', ['id' => $address->id] ) }}" method="POST">
 				{!! csrf_field() !!}
 				<input type="hidden" name="_method" value="DELETE">
 				<button class="btn btn-primary" type="submit">Remove</button>

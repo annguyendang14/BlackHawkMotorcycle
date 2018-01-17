@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
 	<h2>Order ID: {{ $order->id }}</h2>
-	<form action="/orders-admin/{{ $order->id }}" method="POST">
+	<form action="{{ route('orders-admin.update', ['id' => $order->id] ) }}" method="POST">
 		{!! csrf_field() !!}
 		
 		<input type="hidden" name="_method" value="PATCH">
@@ -42,7 +42,7 @@
 		
 		<div class="form-group">
 			<label>Unpaid Price</label>
-			<input type="number" name="unpaid_price" class="form-control" value="{{ $order->unpaid_price }}"  required autofocus>
+			<input type="number" step="0.01" min="0" max="{{ $order->total_price }}" name="unpaid_price" class="form-control" value="{{ $order->unpaid_price }}" required autofocus>
 		</div>
 		
 		<div class="form-group">

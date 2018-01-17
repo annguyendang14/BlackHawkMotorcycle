@@ -7,7 +7,7 @@
 				{{ session('status') }}
 			</div>
 		@endif
-	<form action="/systemdate" method="POST">
+	<form action="{{ route('systemdate') }}" method="POST">
 		{!! csrf_field() !!}
 		<input type="hidden" name="_method" value="PATCH">
 		<div class="form-group{{ $errors->has('open') ? ' has-error' : '' }}">

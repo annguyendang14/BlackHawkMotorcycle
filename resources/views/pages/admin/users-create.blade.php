@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Create User</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="\users">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('users.store') }}">
                         {{ csrf_field() }}
 
                         @include('partials.registerpartialform')

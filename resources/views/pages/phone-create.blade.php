@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-	<form action="/phones" method="POST">
+	<form action="{{ route('phones.store') }}" method="POST">
 		{!! csrf_field() !!}
 		
 		<div class="form-group">

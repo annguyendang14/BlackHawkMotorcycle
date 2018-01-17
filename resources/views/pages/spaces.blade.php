@@ -7,14 +7,14 @@ use App\User;?>
 	<div class="container">
 		
 		@if ($staff)
-			<a href="/spaces/create" class="btn btn-sm btn-success">
+			<a href="{{ route('spaces.create' ) }}" class="btn btn-sm btn-success">
 				Create a space
 			</a><br />
 		@endif
 		
 		<div class="dropdown">
 			<div class="pull-right">
-				<form action="/spaces/search" method="GET">
+				<form action="{{ route('spaces.search' ) }}" method="GET">
 					
 					<input type="text" name="keyword">
 					<button type="submit" class="btn btn-primary">Search</button>
@@ -26,7 +26,7 @@ use App\User;?>
 			<ul class="dropdown-menu">
 			
 				@foreach ($availabilities as $key => $val)
-					<li><a href="/spaces/availability/{{ $key }}">{{ $val }}</a></li>
+					<li><a href=" {{ route('spaces.availability', ['id' => $key] ) }}">{{ $val }}</a></li>
 					
 				@endforeach
 			
@@ -61,7 +61,7 @@ use App\User;?>
 					@elseif ($space->user->staff and !Auth::user()->staff)
 						<td>Admin</td>
 					@elseif ($staff)
-						<td><a href="/users/{{ $space->user_id }}">{{ $space->user->email }}</a></td>
+						<td><a href="{{ route('users.show', ['id' => $space->user_id] ) }}">{{ $space->user->email }}</a></td>
 					@else
 						<td>{{ $space->user->firstName }} {{ $space->user->lastName }}</td>
 					@endif
@@ -72,9 +72,9 @@ use App\User;?>
 						<ul class="list-inline list-unstyled">
 							<!--<li><a href="/spaces/{{ $space->id }}" class="btn btn-link">View</a></li>-->
 							@if ($staff)
-								<li><a href="/spaces/{{ $space->id }}/edit" class="btn btn-link">Edit</a></li>
+								<li><a href="{{ route('spaces.edit', ['id' => $space->id] ) }}" class="btn btn-link">Edit</a></li>
 
-								<li><form class="delete" action="/spaces/{{ $space->id }}" method="POST">
+								<li><form class="delete" action="{{ route('spaces.destroy', ['id' => $space->id] ) }}" method="POST">
 									{!! csrf_field() !!}
 									<input type="hidden" name="_method" value="DELETE">
 									<button type="submit" class="btn btn-link">Delete</button>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-	
+	<!-- this class is not used -->
 	<div class="container">
 		@if (!$staff) 
 			<a class="btn btn-primary" href="{{ route('addresses.create') }}">Add new Adresss</a> 
